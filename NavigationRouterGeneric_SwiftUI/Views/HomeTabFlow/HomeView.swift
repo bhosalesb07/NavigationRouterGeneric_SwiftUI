@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject var router = HomeFlowRouter()
+    @EnvironmentObject var router : HomeFlowRouter
     
     var body: some View {
         NavigationStack(path: $router.navPaths) {
@@ -21,7 +21,7 @@ struct HomeView: View {
                         
                 }
                 .navigationTitle("Home View")
-        }.environmentObject(router)
+        }
             
         
     }

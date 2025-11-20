@@ -10,26 +10,45 @@ import SwiftUI
 
 
 struct ProfileAView: View {
+    @EnvironmentObject var router : ProfileFlowRouter
     var body: some View {
         VStack{
-           Text("Hello, Profile A")
+            Button("Go to Profile B") {
+                router.navigate(to: .profileB)
+            }
         }
     }
 }
 
 struct ProfileBView: View {
+    @EnvironmentObject var router : ProfileFlowRouter
     var body: some View {
         VStack{
-           Text("Hello, Profile B")
+            Button("Go to Profile C") {
+                router.navigate(to: .profileC)
+            }
         }
     }
 }
 
 
 struct ProfileCView: View {
+    @EnvironmentObject var router : ProfileFlowRouter
+    
     var body: some View {
-        VStack{
-           Text("Hello, Profile C")
+        VStack(alignment: .center,spacing: 20){
+            Button("Go to Home B") {
+                router.navigationBack()
+            }
+            Button("Go to Home A") {
+                router.navigateBack(to: .profileA)
+            }
+            Button("Go to Home") {
+                router.navigateToRoot()
+            }
+            Button("Switch Root") {
+                router.switchRoot(to: .Profile)
+            }
         }
     }
 }

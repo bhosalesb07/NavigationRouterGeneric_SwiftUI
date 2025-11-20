@@ -7,18 +7,35 @@
 
 import SwiftUI
 
+enum TabFlow: Hashable {
+    case home
+    case profile
+}
+
 struct DashboardView: View {
+    @StateObject var homeRouter = HomeFlowRouter()
+    @StateObject var profileRouter = ProfileFlowRouter()
+    @State private var selectedTab: TabFlow = .home
+    
     var body: some View {
         TabView{
-            HomeView().tabItem {
-               Label("Home View", systemImage: "house.fill")
-            }
+            HomeView()
+                .environmentObject(homeRouter)
+                .tag(TabFlow.home)
+                .tabItem {
+                    Label("Home View", systemImage: "house.fill")
+                    
+                }
             
-            ProfileView().tabItem {
-               Label("Profile", systemImage: "person.fill")
-            }
+            ProfileView()
+                .environmentObject(profileRouter)
+                .tag(TabFlow.profile)
+                .tabItem {
+                    Label("Profile", systemImage: "person.fill")
+                }
         }
     }
+    
 }
 
 struct DashboardView_Previews: PreviewProvider {

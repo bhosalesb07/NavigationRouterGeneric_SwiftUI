@@ -22,6 +22,13 @@ protocol NavigationDestination:Equatable{
 final class Router<Destination: NavigationDestination>:ObservableObject{
     @Published var navPaths:[Destination] = []
     @Published var stacks:[Destination] = []
+    @Published var rootFlow : RootFlow = .Home
+    
+    enum RootFlow{
+        case Home
+        case Profile
+    }
+    
     func navigate(to destination:Destination){
         navPaths.append(destination)
         stacks.append(destination)
@@ -45,4 +52,10 @@ final class Router<Destination: NavigationDestination>:ObservableObject{
             stacks.removeLast()
         }
     }
+    
+    func switchRoot(to newFlow: RootFlow) {
+        navigateToRoot()
+        rootFlow = newFlow
+    }
+    
 }
